@@ -1,0 +1,23 @@
+services:
+  postgres-db:
+    image: postgres:17
+    container_name: hdq-cinema-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-myuser}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-mypassword}
+      POSTGRES_DB: ${POSTGRES_DB:-hdq_cinema_db}
+      TZ: Asia/Ho_Chi_Minh
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - cinema-network
+
+volumes:
+  postgres_data:
+
+networks:
+  cinema-network:
+    driver: bridge
