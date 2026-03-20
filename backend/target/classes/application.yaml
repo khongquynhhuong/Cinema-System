@@ -1,0 +1,31 @@
+server:
+  servlet:
+    context-path: /cinemas
+  port: 8080
+
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+jwt:
+  signerKey: ${JWT_SIGNER_KEY}
+  valid-duration: 3600 # in seconds
+  refreshable-duration: 36000 # in seconds
+
+#    properties:
+#      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+#      default_schema: public
+#      jdbc.time_zone: "Asia/Ho_Chi_Minh"
