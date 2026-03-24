@@ -1,0 +1,39 @@
+package com.example.HDQCinema.entity;
+
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class Movie {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "movie_id")
+    Long id;
+
+    String title, poster;
+    Integer duration;
+    LocalDate dayStart, dayEnd;
+    String director, genre, description, trailer_url;
+
+
+    Integer limitAge;
+
+    @OneToMany(mappedBy = "movie",// nghĩa là showtime sở hữu khóa ngoại movie_id
+            cascade = CascadeType.ALL,//Mọi thao tác (lưu, xóa, update) trên Movie sẽ tự động lan xuống Showtimes.
+            orphanRemoval = true) //Nếu bạn bỏ một Showtime ra khỏi danh sách, nó sẽ bị xóa luôn trong DB.
+    //Một Movie có nhiều Showtime.
+
+    List<ShowTime> showtimes;
+}
